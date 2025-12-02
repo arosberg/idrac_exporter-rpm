@@ -1,0 +1,17 @@
+[Unit]
+Description=iDRAC Prometheus exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+ExecStart=/usr/bin/idrac_exporter --config /etc/idrac_exporter/config.yml
+Restart=on-failure
+RestartSec=5
+
+# Hardening (optional)
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
