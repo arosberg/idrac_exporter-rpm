@@ -1,0 +1,3 @@
+*.rpm
+rpmbuild/BUILDROOT
+*linux-amd64
