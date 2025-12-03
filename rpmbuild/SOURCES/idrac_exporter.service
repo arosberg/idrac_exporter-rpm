@@ -6,7 +6,7 @@ Wants=network-online.target
 [Service]
 User=prometheus
 Group=prometheus
-ExecStart=/usr/bin/idrac_exporter --config /etc/idrac_exporter/config.yml
+ExecStart=/usr/bin/idrac_exporter --config /etc/idrac_exporter/idrac.yml
 Restart=on-failure
 RestartSec=5
 
