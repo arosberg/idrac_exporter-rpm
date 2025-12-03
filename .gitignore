@@ -1,3 +1,7 @@
 *.rpm
 rpmbuild/BUILDROOT
+rpmbuild/BUILD
+rpmbuild/RPMS
+rpmbuild/SRPMS
 *linux-amd64
+*tar.gz
