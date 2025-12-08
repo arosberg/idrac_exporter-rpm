@@ -23,6 +23,11 @@ Requires(postun): systemd
 %description
 Prometheus exporter for Redfish-based hardware metrics.
 
+%pre
+getent group idrac_exporter >/dev/null || groupadd -r idrac_exporter
+getent passwd idrac_exporter >/dev/null || \
+    useradd -r -g idrac_exporter -d /var/lib/idrac_exporter -s /sbin/nologin idrac_exporter
+
 %prep
 %autosetup -n idrac_exporter-%{version}
 
@@ -42,8 +47,11 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/idrac_exporter.service
 install -D -m 0640 %{SOURCE2} %{buildroot}%{_sysconfdir}/prometheus/idrac.yml
 
 %post
+# Ensure config is owned by the service user on the target system
+chown idrac_exporter:idrac_exporter %{_sysconfdir}/prometheus/idrac.yml >/dev/null 2>&1 || :
+
 systemctl daemon-reload > /dev/null 2>&1 || :
-systemctl enable --now idrac_exporter.service > /dev/null 2>&1 || :
+# systemctl enable --now idrac_exporter.service > /dev/null 2>&1 || :
 
 %preun
 if [ $1 -eq 0 ]; then
@@ -52,6 +60,12 @@ fi
 
 %postun
 systemctl daemon-reload > /dev/null 2>&1 || :
+
+# Delete idrac_exporter user
+if [ "$1" -eq 0 ]; then
+    getent passwd idrac_exporter >/dev/null && userdel idrac_exporter || :
+    getent group idrac_exporter >/dev/null && groupdel idrac_exporter || :
+fi
 
 %files
 %license
