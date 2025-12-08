@@ -7,7 +7,6 @@ License:        MIT
 URL:            https://github.com/mrlhansen/idrac_exporter
 Source0:        https://github.com/mrlhansen/idrac_exporter/archive/refs/tags/v%{version}.tar.gz
 Source1:        idrac_exporter.service
-Source2:        idrac.yml
 
 %define _unitdir /usr/lib/systemd/system
 
@@ -44,7 +43,7 @@ install -D -m 0755 idrac_exporter %{buildroot}%{_bindir}/idrac_exporter
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/idrac_exporter.service
 
 # Install default config
-install -D -m 0640 %{SOURCE2} %{buildroot}%{_sysconfdir}/prometheus/idrac.yml
+install -D -m 0640 sample-config.yml %{buildroot}%{_sysconfdir}/prometheus/idrac.yml
 
 %post
 # Ensure config is owned by the service user on the target system

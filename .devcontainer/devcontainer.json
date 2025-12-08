@@ -1,0 +1,12 @@
+{
+  "name": "AlmaLinux 9 RPM build",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  // Mount the repo into /workspace inside the container
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "remoteUser": "vscode",
+  "features": {},
+}
