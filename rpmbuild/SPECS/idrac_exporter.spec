@@ -1,5 +1,5 @@
 Name:           idrac_exporter
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        Prometheus exporter for Dell iDRAC via Redfish
 
@@ -74,5 +74,7 @@ fi
 %{_unitdir}/idrac_exporter.service
 
 %changelog
+* Tue Jan 13 2026 Aidan Rosberg <arosberg@iu.edu> - 2.3.2-1
+- Update version to match latest upstream source version
 * Mon Dec 01 2025 Aidan Rosberg <arosberg@iu.edu> - 2.3.1-1
 - Initial package
